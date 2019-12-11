@@ -1,0 +1,33 @@
+{
+  "name": "fantasy-nba-rankings-calculator",
+  "version": "1.0.0",
+  "description": "Create fantasy NBA rankings by player",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "fs-extra": "^8.1.0",
+    "googleapis": "39",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "scripts": {
+    "calculate-rankings": "node calculator/index.js",
+    "fetch-data": "node sheets/index.js",
+    "fetch-and-calculate": "yarn fetch-data && yarn calculate-rankings",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattbatman/fantasy-nba-rankings-calculator.git"
+  },
+  "author": "Matt Batman",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattbatman/fantasy-nba-rankings-calculator/issues"
+  },
+  "homepage": "https://github.com/mattbatman/fantasy-nba-rankings-calculator#readme"
+}
