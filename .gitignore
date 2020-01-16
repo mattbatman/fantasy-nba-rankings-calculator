@@ -1,13 +1,6 @@
 .DS_Store
-
-__pycache__
-
 **/*/*.swp
-
-config.py
-
-sheets_credentials.json
-
-token.pickle
-
-data
+sheets-auth/
+data/
+conf/config.json
+fantasy-nba-rankings-calculator
