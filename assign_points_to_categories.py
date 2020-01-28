@@ -4,6 +4,7 @@ together. create_points_data will cycle through data, sort it by category, and
 call create_points_for_category for the sorted data at each category.
 """
 
+
 def create_points_data(stat_data, categories):
     """
     Sorts data for each category and determines: where that value ranks after
@@ -51,21 +52,13 @@ def create_points_for_category(data_sorted, category):
     points_due_for_category = {}
     for index, player in enumerate(data_sorted):
         value_for_player = player[category]
-        # cast the player value to a string so it can be used as a key
         key_in_data = str(value_for_player)
-        # inverse_rank is equivalent to points due (e.g. in a list of 500
-        # players, the 1st person will get 500). The data is sorted in
-        # ascending order, so the best player will have the highest index.
         inverse_rank_for_player = index + 1
-        # if we already have a key for this value in the final data structure
         if key_in_data in points_due_for_category:
-            # append the index to the running list
             points_due_for_category[key_in_data]['ranks_inverse'].append(
                 inverse_rank_for_player)
-            # increment the count
             points_due_for_category[key_in_data]['count'] = len(
                 points_due_for_category[key_in_data]['ranks_inverse'])
-            # recalculate the amount due for that value
             points_due_for_category[key_in_data]['due'] = sum(
                 points_due_for_category[key_in_data]['ranks_inverse']) / points_due_for_category[key_in_data]['count']
         else:

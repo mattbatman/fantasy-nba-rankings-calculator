@@ -4,9 +4,8 @@ import os.path
 from assign_points_to_categories import create_points_data
 from config import spreadsheet, current_season, stat_categories, rankings_dir
 from convert_stats_to_numbers import convert_stats_to_numbers
-from fantasy_points_per_player import create_fantasy_points_per_player, create_fantasy_points_per_player_turnovers_half
+from fantasy_points_per_player import create_fantasy_points_per_player
 from fetch_sheets_data import fetch_data
-
 
 
 def main():
@@ -26,21 +25,14 @@ def main():
             formatted_data, stat_categories)
         fantasy_points = create_fantasy_points_per_player(
             formatted_data, points_due_per_value, stat_categories)
-        fantasy_points_punt_turnovers = create_fantasy_points_per_player_turnovers_half(
-            formatted_data, points_due_per_value, stat_categories)
 
         try:
             with open('{}/{}-{}.json'.format(rankings_dir, spreadsheet['data_output_file_name'], current_season), 'w') as outfile:
                 json.dump(fantasy_points, outfile)
-            with open('{}/discount-turnovers-{}-{}.json'.format(rankings_dir, spreadsheet['data_output_file_name'], current_season), 'w') as outfile:
-                json.dump(fantasy_points_punt_turnovers, outfile)
         except FileNotFoundError:
             os.makedirs(rankings_dir, exist_ok=True)
             with open('{}/{}-{}.json'.format(rankings_dir, spreadsheet['data_output_file_name'], current_season), 'w') as outfile:
                 json.dump(fantasy_points, outfile)
-            with open('{}/discount-turnovers-{}-{}.json'.format(rankings_dir, spreadsheet['data_output_file_name'], current_season), 'w') as outfile:
-                json.dump(fantasy_points_punt_turnovers, outfile)
-                    
 
 
 if __name__ == '__main__':

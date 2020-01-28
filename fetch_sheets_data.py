@@ -13,8 +13,8 @@ SPREADSHEET_ID = spreadsheet['id']
 
 
 def fetch_data(range, output_path):
-    """Pull data from per_game_archive tab.
-    Writes the data to a .json file as a list of dicts.
+    """This is mostly a copy and paste of the Google Sheet's API
+    Python quickstart.
     """
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -61,7 +61,7 @@ def parse_and_write(sheets_values, filepath):
     for datum in data:
         player_data = dict(zip(keys, datum))
         all_players.append(player_data)
-    
+
     try:
         with open(filepath, 'w') as outfile:
             json.dump(all_players, outfile)
