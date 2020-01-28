@@ -8,6 +8,9 @@ const {
 const mapFantasyPointsToPlayer = require('./map-fantasy-points-to-player');
 const config = require('../config');
 
+// createRankings is a function. It accepts the parameters expected by
+// the first listed function (convertStringsToFloats), executes that function, and
+// passes the returned value to the next function to continue the pipepline.
 const createRankings = R.pipe(
   convertStringsToFloats,
   createFantasyPointsByAmountAndCategory,
@@ -19,6 +22,7 @@ const rankings = createRankings({
   categories: config.statCats
 });
 
-fs.outputFile(config.ranksPath, rankings, 'utf8', error =>
+// Output the final rankings data.
+fs.outputFile(config.ranksPath, JSON.stringify(rankings), 'utf8', error =>
   console.error(error)
 );
