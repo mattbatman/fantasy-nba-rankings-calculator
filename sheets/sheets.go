@@ -81,11 +81,11 @@ func writeDataAsJSON(data []map[string]interface{}) {
 
 	if _, err := os.Stat("data"); os.IsNotExist(err) {
 		os.MkdirAll("data", 0700)
+	}
 
-		err := ioutil.WriteFile("data/sheets-data.json", rankingsJSON, 0644)
-		if err != nil {
-			fmt.Println(err.Error())
-		}
+	err := ioutil.WriteFile("data/sheets-data.json", rankingsJSON, 0644)
+	if err != nil {
+		fmt.Println(err.Error())
 	}
 }
 

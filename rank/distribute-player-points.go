@@ -1,4 +1,4 @@
-package calculateRankings
+package rank
 
 import (
 	"strconv"
@@ -9,7 +9,7 @@ import (
 // DistributePlayerPoints takes the fantasy points due for each category at
 // each amount, iterates over the statistical NBA data, and returns a data
 // structure that will eventually be written as a JSON file
-func DistributePlayerPoints(amountAndCategory models.AmountAndCategory, NBAData []models.NBAData) []models.BioStatsPoints {
+func DistributePlayerPoints(amountAndCategory models.AmountAndCategory, NBAData []models.Spreadsheet) []models.BioStatsPoints {
 	var outputData []models.BioStatsPoints
 
 	for _, nd := range NBAData {
