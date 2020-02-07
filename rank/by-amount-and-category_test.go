@@ -1,4 +1,4 @@
-package calculateRankings
+package rank
 
 import (
 	"encoding/json"

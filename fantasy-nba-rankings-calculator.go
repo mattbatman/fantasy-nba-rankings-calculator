@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	calculateRankings "github.com/mattbatman/fantasy-nba-rankings-calculator/calculate-rankings"
 	"github.com/mattbatman/fantasy-nba-rankings-calculator/models"
+	"github.com/mattbatman/fantasy-nba-rankings-calculator/rank"
 	"github.com/mattbatman/fantasy-nba-rankings-calculator/sheets"
 )
 
@@ -31,7 +31,7 @@ func dispatch(parameters *models.Parameters) {
 	case "fetch":
 		sheets.FetchSheetsData()
 	case "calculate":
-		calculateRankings.CalculateRankings()
+		rank.CalculateRankings()
 	default:
 		fmt.Println("No mode recognized.")
 	}

@@ -1,4 +1,4 @@
-package calculateRankings
+package rank
 
 import (
 	"fmt"
@@ -10,7 +10,7 @@ import (
 
 // ByAmountAndCategory calls Calculate for every field in the
 // AmountAndCategory struct
-func ByAmountAndCategory(data []models.NBAData) models.AmountAndCategory {
+func ByAmountAndCategory(data []models.Spreadsheet) models.AmountAndCategory {
 	var amountAndCategory models.AmountAndCategory
 
 	amountAndCategory.Points = Calculate(data, "Points")
@@ -27,9 +27,9 @@ func ByAmountAndCategory(data []models.NBAData) models.AmountAndCategory {
 }
 
 // Calculate takes data and a category and returns the points due as a slice for
-// each amount. The amount as a string is used as a key, pointing to the
+// each amount. The statistical amount as a string is used as a key, pointing to the
 // DuePer and DueList.
-func Calculate(data []models.NBAData, category string) map[string]models.PointsDue {
+func Calculate(data []models.Spreadsheet, category string) map[string]models.PointsDue {
 	pointsDue := make(map[string]models.PointsDue)
 
 	slv := GetSortedListOfValues(data, category)
@@ -61,7 +61,7 @@ func Calculate(data []models.NBAData, category string) map[string]models.PointsD
 }
 
 // GetSortedListOfValues creates a list of values for the provided category
-func GetSortedListOfValues(data []models.NBAData, category string) []float64 {
+func GetSortedListOfValues(data []models.Spreadsheet, category string) []float64 {
 	var listOfValues []float64
 
 	switch category {
