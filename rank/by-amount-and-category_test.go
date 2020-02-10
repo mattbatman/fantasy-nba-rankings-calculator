@@ -15,7 +15,7 @@ func TestGetSortedListOfValues(t *testing.T) {
 		t.Error(e)
 	}
 
-	var data []models.NBAData
+	var data []models.Spreadsheet
 
 	_ = json.Unmarshal(file, &data)
 
@@ -53,7 +53,7 @@ func TestCalculate(t *testing.T) {
 		t.Error(e)
 	}
 
-	var data []models.NBAData
+	var data []models.Spreadsheet
 
 	_ = json.Unmarshal(file, &data)
 

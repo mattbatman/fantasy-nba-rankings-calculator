@@ -1,4 +1,4 @@
-# Fantasy NBA Rankings Calculator in Go
+# Fantasy NBA Rankings Calculator
 
 ## Getting Started
 

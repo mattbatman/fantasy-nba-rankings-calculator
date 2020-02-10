@@ -2,7 +2,6 @@ package rank
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"testing"
 
@@ -16,7 +15,7 @@ func TestDistributePlayerPoints(t *testing.T) {
 		t.Error(e)
 	}
 
-	var data []models.NBAData
+	var data []models.Spreadsheet
 	var amountAndCategory models.AmountAndCategory
 	var playerRanks []models.BioStatsPoints
 
@@ -41,7 +40,6 @@ func TestDistributePlayerPoints(t *testing.T) {
 		t.Error("Unexpected fantasy points for assists")
 	}
 
-	fmt.Println(playerRanks[0].Points)
 	if playerRanks[0].Points.Total != 21.5 {
 		t.Error("Unexpected fantasy points for total")
 	}
