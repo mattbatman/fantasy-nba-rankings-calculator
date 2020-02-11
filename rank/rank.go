@@ -32,18 +32,22 @@ func CalculateRankings() {
 // for that season, and writes the data to file.
 func CalculateRankingsPerSeason(data []models.Spreadsheet, season string) {
 	var amountAndCategory models.AmountAndCategory
-	var playerRanks []models.BioStatsPoints
+	var fullPlayerRanks []models.BioStatsPoints
+	var puntTOPlayerRanks []models.BioStatsPoints
 
 	amountAndCategory = ByAmountAndCategory(data)
-	playerRanks = DistributePlayerPoints(amountAndCategory, data)
+	fullPlayerRanks = DistributePlayerPoints(amountAndCategory, data)
+	puntTOPlayerRanks = PuntTurnoversFiftyPercent(fullPlayerRanks)
 
-	sortedPlayerRanks := SortRanks(playerRanks)
+	fullSortedPlayerRanks := SortRanks(fullPlayerRanks)
+	puntTOSortedPlayerRanks := SortRanks(puntTOPlayerRanks)
 
-	WriteRankings(sortedPlayerRanks, season)
+	WriteRankings(fullSortedPlayerRanks, season, false)
+	WriteRankings(puntTOSortedPlayerRanks, season, true)
 }
 
 // WriteRankings writes rankings data to file.
-func WriteRankings(data []models.BioStatsPoints, season string) {
+func WriteRankings(data []models.BioStatsPoints, season string, isPuntTO bool) {
 	appConfig, configErr := config.GetConfig()
 
 	if configErr != nil {
@@ -54,6 +58,13 @@ func WriteRankings(data []models.BioStatsPoints, season string) {
 	datatype := appConfig.PerGameOrTotalFileIdentifier
 
 	mi, _ := json.MarshalIndent(data, "", " ")
+	outPath := "data/ranks-" + datatype + "-"
 
-	_ = ioutil.WriteFile("data/ranks-"+datatype+"-"+season+".json", mi, 0644)
+	if isPuntTO {
+		outPath = outPath + "to-halved-"
+	}
+
+	outPath = outPath + season + ".json"
+
+	_ = ioutil.WriteFile(outPath, mi, 0644)
 }
