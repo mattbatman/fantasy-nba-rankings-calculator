@@ -1,4 +1,5 @@
 {
-  "spreadsheetID": "",
-  "spreadsheetRange": ""
+  "perGameOrTotalFileIdentifier": "per-game",
+  "spreadsheetID": "gibberish",
+  "spreadsheetRange": "my_tab!A:AE"
 }

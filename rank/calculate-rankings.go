@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"os"
 
+	"github.com/mattbatman/fantasy-nba-rankings-calculator/config-parser"
 	"github.com/mattbatman/fantasy-nba-rankings-calculator/models"
 )
 
@@ -22,7 +24,6 @@ func CalculateRankings() {
 	dataBySeasons = GetDataBySeasons(data)
 
 	for season, seasonalData := range dataBySeasons {
-		fmt.Println(season)
 		CalculateRankingsPerSeason(seasonalData, season)
 	}
 }
@@ -36,12 +37,23 @@ func CalculateRankingsPerSeason(data []models.Spreadsheet, season string) {
 	amountAndCategory = ByAmountAndCategory(data)
 	playerRanks = DistributePlayerPoints(amountAndCategory, data)
 
-	WriteRankings(playerRanks, season)
+	sortedPlayerRanks := SortRanks(playerRanks)
+
+	WriteRankings(sortedPlayerRanks, season)
 }
 
 // WriteRankings writes rankings data to file.
 func WriteRankings(data []models.BioStatsPoints, season string) {
+	appConfig, configErr := config.GetConfig()
+
+	if configErr != nil {
+		fmt.Printf("Config File Error: %s\n", configErr)
+		os.Exit(1)
+	}
+
+	datatype := appConfig.PerGameOrTotalFileIdentifier
+
 	mi, _ := json.MarshalIndent(data, "", " ")
 
-	_ = ioutil.WriteFile("data/ranks-"+season+".json", mi, 0644)
+	_ = ioutil.WriteFile("data/ranks-"+datatype+"-"+season+".json", mi, 0644)
 }
